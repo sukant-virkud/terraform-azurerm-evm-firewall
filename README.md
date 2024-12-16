@@ -15,7 +15,9 @@ Examples can be found at the bottom taken from the `examples` directory.
 
 ## Providers
 
-No providers.
+| Name | Version |
+|------|---------|
+| azurerm | ~> 4.0 |
 
 ## Modules
 
@@ -23,7 +25,9 @@ No modules.
 
 ## Resources
 
-No resources.
+| Name | Type |
+|------|------|
+| [azurerm_resource_group.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/resource_group) | resource |
 
 ## Inputs
 
@@ -49,33 +53,27 @@ No resources.
 ### Main
 #### terraform.tfvars
 ```hcl
-company_name            = "ens"
-project_name            = "evm"
-environment_name        = "ci"
-subscription_short_name = "sub"
-resource_suffix_name    = "main"
-module_names            = ["root", "example"]
-azure_geography         = "United Kingdom"
+company_name_short      = "ens"
+subscription_name_short = "sub"
+module_names            = ["example"]
 azure_location          = "uksouth"
 
 /*
 Sensitive inputs should be passed as pipeline environment variables
 
-azure_default_provider_subscription_id = "xxx"
+azure_subscription_id = "xxx"
 */
 ```
 
 #### example.tf
 ```hcl
 
-module "example" {
-  source = "../../"
+# module "example" {
+#   source = "../../"
 
-  naming_map           = module.naming["example"]
-  resource_group_name  = azurerm_resource_group.modules["example"].name
-  azure_location       = azurerm_resource_group.modules["example"].location
-  azure_location_zones = module.azure_locations.regions_by_name[var.azure_location].zones
-  azure_resource_tags  = local.resource_tags
-}
+#   resource_group_name  = azurerm_resource_group.modules["example"].name
+#   azure_location       = azurerm_resource_group.modules["example"].location
+#   azure_resource_tags  = local.resource_tags
+# }
 ```
 <!-- END_TF_DOCS -->
