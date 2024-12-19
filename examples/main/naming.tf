@@ -1,10 +1,3 @@
-module "azure_region_names" {
-  source  = "claranet/regions/azurerm"
-  version = "7.2.1"
-
-  azure_region = var.azure_location
-}
-
 module "naming" {
   for_each = var.module_names
 
@@ -14,7 +7,7 @@ module "naming" {
   suffix = tolist(
     [
       var.company_name_short,
-      module.azure_region_names.location_short,
+      module.azure_region.short_name,
       terraform.workspace,
       var.subscription_name_short,
       each.key

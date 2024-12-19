@@ -1,8 +1,9 @@
 
-# module "example" {
-#   source = "../../"
+module "example" {
+  source = "../../"
 
-#   resource_group_name  = azurerm_resource_group.modules["example"].name
-#   azure_location       = azurerm_resource_group.modules["example"].location
-#   azure_resource_tags  = local.resource_tags
-# }
+  azure_location       = azurerm_resource_group.modules["firewall"].location
+  azure_location_zones = module.azure_regions.regions_by_name[var.azure_location].zones
+  naming_map           = local.name_map["firewall"]
+  azure_resource_tags  = local.resource_tags
+}

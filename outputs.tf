@@ -4,12 +4,6 @@ output "naming_map" {
   sensitive   = false
 }
 
-output "resource_group_name" {
-  description = "DELETE: temporary to satisfy TFLint rules"
-  value       = var.resource_group_name
-  sensitive   = false
-}
-
 output "azure_location" {
   description = "DELETE: temporary to satisfy TFLint rules"
   value       = var.azure_location

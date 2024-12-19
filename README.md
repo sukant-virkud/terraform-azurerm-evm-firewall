@@ -37,7 +37,6 @@ No modules.
 | azure\_location\_zones | The Azure target location available zones | `set(number)` | n/a | yes |
 | azure\_resource\_tags | Resource tags to add to all resources managed by this module. | `map(string)` | n/a | yes |
 | naming\_map | A map containing Azure resource anmes aligned to the Cloud Adoption Framework. | `any` | n/a | yes |
-| resource\_group\_name | Resource group name for all resources managed by this module. | `string` | n/a | yes |
 
 ## Outputs
 
@@ -47,16 +46,15 @@ No modules.
 | azure\_location\_zones | DELETE: temporary to satisfy TFLint rules |
 | azure\_resource\_tags | DELETE: temporary to satisfy TFLint rules |
 | naming\_map | DELETE: temporary to satisfy TFLint rules |
-| resource\_group\_name | DELETE: temporary to satisfy TFLint rules |
 
 ## Examples
 ### Main
 #### terraform.tfvars
 ```hcl
-company_name_short      = "ens"
-subscription_name_short = "sub"
-module_names            = ["example"]
-azure_location          = "uksouth"
+company_name_short      = "ensevm"
+subscription_name_short = "con"
+module_names            = ["firewall"]
+azure_location          = "westeurope"
 
 /*
 Sensitive inputs should be passed as pipeline environment variables
@@ -68,12 +66,13 @@ azure_subscription_id = "xxx"
 #### example.tf
 ```hcl
 
-# module "example" {
-#   source = "../../"
+module "example" {
+  source = "../../"
 
-#   resource_group_name  = azurerm_resource_group.modules["example"].name
-#   azure_location       = azurerm_resource_group.modules["example"].location
-#   azure_resource_tags  = local.resource_tags
-# }
+  azure_location       = azurerm_resource_group.modules["firewall"].location
+  azure_location_zones = module.azure_regions.regions_by_name[var.azure_location].zones
+  naming_map           = local.name_map["firewall"]
+  azure_resource_tags  = local.resource_tags
+}
 ```
 <!-- END_TF_DOCS -->

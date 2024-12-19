@@ -25,28 +25,27 @@ variable "azure_subscription_id" {
   sensitive   = false
 }
 
+/*
+Examples
+https://datacenters.microsoft.com/globe/explore?info=geography_unitedkingdom
+https://datacenters.microsoft.com/globe/explore?info=geography_europe
+https://datacenters.microsoft.com/globe/explore?info=geography_unitedstates
+
+https://learn.microsoft.com/en-us/azure/reliability/cross-region-replication-azure#azure-paired-regions
+*/
+variable "azure_geography" {
+  description = "The Azure geography name for the target location."
+  type        = string
+  default     = null
+  sensitive   = false
+}
+
 variable "azure_location" {
   description = "The Azure location to target all resources."
   type        = string
   sensitive   = false
 }
 
-
-variable "azure_resource_group_management_lock_level" {
-  description = "Optional: The level of Management Lock apply to Resource Groups"
-  type        = string
-  sensitive   = false
-  default     = ""
-
-  validation {
-    condition = contains([
-      "",
-      "ReadOnly",
-      "CanNotDelete"
-    ], var.azure_resource_group_management_lock_level)
-    error_message = "Possible values are 'ReadOnly' or 'CanNotDelete'."
-  }
-}
 
 variable "azure_resource_tags" {
   description = "Optional: Resource tags to add to all resources managed by this module."
