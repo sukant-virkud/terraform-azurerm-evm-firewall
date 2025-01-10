@@ -53,3 +53,8 @@ variable "azure_resource_tags" {
   sensitive   = false
   default     = {}
 }
+
+variable "resource_group_name" {
+  type        = string
+  description = "The resource group where the resources will be deployed."
+}

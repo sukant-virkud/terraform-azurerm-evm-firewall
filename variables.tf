@@ -22,3 +22,8 @@ variable "azure_resource_tags" {
   type        = map(string)
   sensitive   = false
 }
+
+variable "resource_group_name" {
+  type        = string
+  description = "The resource group where the resources will be deployed."
+}
