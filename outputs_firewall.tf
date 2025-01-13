@@ -1,6 +1,4 @@
-
-
-
 output "firewall_id" {
-  value = module.firewall.resource_id
+  description = "The resource ID of the firewall."
+  value       = module.firewall.resource_id
 }

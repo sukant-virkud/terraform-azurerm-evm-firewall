@@ -11,8 +11,8 @@ module "parent_firewall_policy" {
   resource_group_name                           = var.resource_group_name
   firewall_policy_threat_intelligence_mode      = var.parent_firewall_policy_threat_intelligence_mode
   firewall_policy_threat_intelligence_allowlist = var.parent_firewall_policy_threat_intelligence_allowlist
-  firewall_policy_sku                           = var.parent_firewall_policy_policy_sku 
+  firewall_policy_sku                           = var.parent_firewall_policy_policy_sku
   firewall_policy_intrusion_detection           = var.parent_firewall_policy_intrusion_detection
-  tags                                          = var.azure_resource_tags 
+  tags                                          = var.azure_resource_tags
 
 }

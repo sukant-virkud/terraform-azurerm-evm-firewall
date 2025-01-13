@@ -2,8 +2,8 @@
 
 module "public_ip_address" {
 
-  source              = "Azure/avm-res-network-publicipaddress/azurerm"
-  version             = "0.1.2"
+  source  = "Azure/avm-res-network-publicipaddress/azurerm"
+  version = "0.1.2"
 
   resource_group_name = var.resource_group_name
   name                = var.naming_map.public_ip.name
@@ -13,5 +13,5 @@ module "public_ip_address" {
   zones               = var.azure_location_zones
   tags                = var.azure_resource_tags
   sku_tier            = var.pip_sku_tier
-  enable_telemetry    = var.pip_enable_telemetry 
+  enable_telemetry    = var.pip_enable_telemetry
 }

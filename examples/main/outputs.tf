@@ -28,6 +28,3 @@ output "child_fwp_id" {
   description = "The assigned IP address of the public IP"
   value       = module.hub_firewall.child_firewall_policy_id
 }
-
-
-
