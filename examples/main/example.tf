@@ -17,6 +17,4 @@ module "hub_firewall" {
   create_firewall_policy                   = true
   firewall_policy_threat_intelligence_mode = "Alert"
   firewall_policy_policy_sku               = "Standard"
-
-
 }
