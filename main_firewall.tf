@@ -7,14 +7,14 @@ module "firewall" {
   name                                 = var.naming_map.firewall.name
   enable_telemetry                     = var.fw_enable_telemetry
   location                             = var.azure_location
-  resource_group_name                  = var.resource_group_name
+  resource_group_name                  = var.network_group_name
   firewall_sku_tier                    = var.firewall_sku_tier
   firewall_sku_name                    = var.firewall_sku_name
   firewall_zones                       = var.azure_location_zones
-  firewall_ip_configuration            = var.firewall_ip_configuration
+  firewall_ip_configuration            = local.firewall_ip_configuration
   firewall_management_ip_configuration = var.firewall_management_ip_configuration
   firewall_private_ip_ranges           = var.firewall_private_ip_ranges
-  firewall_policy_id                   = var.firewall_policy_id
+  firewall_policy_id                   = local.effective_firewall_policy_id
   tags                                 = var.azure_resource_tags
   diagnostic_settings                  = var.diagnostic_settings
 }

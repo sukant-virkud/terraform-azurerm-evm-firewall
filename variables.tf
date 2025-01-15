@@ -27,3 +27,8 @@ variable "resource_group_name" {
   type        = string
   description = "The resource group where the resources will be deployed."
 }
+
+variable "network_group_name" {
+  type        = string
+  description = "The resource group where the network resources are  deployed. Firewall must be created in network resource group"
+}

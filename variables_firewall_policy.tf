@@ -1,9 +1,9 @@
 
 
 
-variable "parent_firewall_policy_enable_telemetry" {
+variable "firewall_policy_enable_telemetry" {
   type        = bool
-  default     = true
+  default     = false
   description = <<DESCRIPTION
 This variable controls whether or not telemetry is enabled for the module.
 For more information see https://aka.ms/avm/telemetryinfo.
@@ -11,13 +11,13 @@ If it is set to false, then no telemetry will be collected.
 DESCRIPTION
 }
 
-variable "create_parent_firewall_policy" {
+variable "create_firewall_policy" {
   type        = string
   description = "condition whetehr the FW policy to be created or not"
   nullable    = false
 }
 
-variable "parent_firewall_policy_threat_intelligence_allowlist" {
+variable "firewall_policy_threat_intelligence_allowlist" {
   type = object({
     fqdns        = optional(set(string))
     ip_addresses = optional(set(string))
@@ -29,19 +29,19 @@ variable "parent_firewall_policy_threat_intelligence_allowlist" {
 EOT
 }
 
-variable "parent_firewall_policy_threat_intelligence_mode" {
+variable "firewall_policy_threat_intelligence_mode" {
   type        = string
   default     = null
   description = "(Optional) The operation mode for Threat Intelligence. Possible values are `Alert`, `Deny` and `Off`. Defaults to `Alert`."
 }
 
-variable "parent_firewall_policy_policy_sku" {
+variable "firewall_policy_policy_sku" {
   type        = string
   default     = null
   description = "(Optional) The SKU Tier of the Firewall Policy. Possible values are `Standard`, `Premium` and `Basic`. Changing this forces a new Firewall Policy to be created."
 }
 
-variable "parent_firewall_policy_intrusion_detection" {
+variable "firewall_policy_intrusion_detection" {
   type = object({
     mode           = optional(string)
     private_ranges = optional(list(string))
@@ -81,4 +81,10 @@ variable "parent_firewall_policy_intrusion_detection" {
  - `source_addresses` - (Optional) Specifies a list of source addresses that shall be bypassed by intrusion detection.
  - `source_ip_groups` - (Optional) Specifies a list of source IP groups that shall be bypassed by intrusion detection.
 EOT
+}
+
+variable "firewall_policy_base_policy_id" {
+  type        = string
+  default     = null
+  description = "(Optional) The ID of the base Firewall Policy."
 }
