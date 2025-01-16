@@ -1,7 +1,7 @@
 
 module "hub_firewall" {
   source               = "../../"
-  network_group_name   = "rg-ensrtf-eus2-prod-con-hub"
+  network_group_name   = var.network_group_name
   azure_location       = azurerm_resource_group.modules["firewall"].location
   resource_group_name  = azurerm_resource_group.modules["firewall"].name
   azure_location_zones = module.azure_regions.regions_by_name[var.azure_location].zones
