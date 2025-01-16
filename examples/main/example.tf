@@ -11,7 +11,7 @@ module "hub_firewall" {
   #Firewall Configurations
   firewall_sku_name                  = "AZFW_VNet"
   firewall_sku_tier                  = "Standard"
-  firewall_ip_configuration_subnetid = "/subscriptions/cea31a73-c42c-4b17-b83d-c629142bf942/resourceGroups/rg-ensrtf-eus2-prod-con-hub/providers/Microsoft.Network/virtualNetworks/vnet-ensrtf-eus2-prod-con-hub/subnets/AzureFirewallSubnet"
+  firewall_ip_configuration_subnetid = "/subscriptions/xxxx-xxxx-xxxx-xxxx-xxxx/resourceGroups/rg-ensrtf-eus2-prod-con-hub/providers/Microsoft.Network/virtualNetworks/vnet-ensrtf-eus2-prod-con-hub/subnets/AzureFirewallSubnet"
   # Firewall Policy Configurations
 
   create_firewall_policy                   = true

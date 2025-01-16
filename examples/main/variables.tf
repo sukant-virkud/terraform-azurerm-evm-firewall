@@ -54,7 +54,7 @@ variable "azure_resource_tags" {
   default     = {}
 }
 
-variable "resource_group_name" {
+variable "network_group_name" {
   type        = string
-  description = "The resource group where the resources will be deployed."
+  description = "The resource group where the network resources are  deployed. Firewall must be created in network resource group"
 }
