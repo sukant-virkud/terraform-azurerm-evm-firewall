@@ -54,7 +54,36 @@ variable "azure_resource_tags" {
   default     = {}
 }
 
-variable "network_group_name" {
+variable "network_resource_group_name" {
   type        = string
   description = "The resource group where the network resources are  deployed. Firewall must be created in network resource group"
+}
+
+variable "firewall_ip_configuration_subnetid" {
+  description = "The subnet ID for the firewall IP configuration."
+  type        = string
+}
+
+variable "firewall_sku_name" {
+  type        = string
+  description = "(Required) SKU name of the Firewall. Possible values are `AZFW_Hub` and `AZFW_VNet`. Changing this forces a new resource to be created."
+  nullable    = false
+}
+
+variable "firewall_sku_tier" {
+  type        = string
+  description = "(Required) SKU tier of the Firewall. Possible values are `Premium`, `Standard` and `Basic`."
+  nullable    = false
+}
+
+variable "firewall_policy_threat_intelligence_mode" {
+  type        = string
+  default     = null
+  description = "(Optional) The operation mode for Threat Intelligence. Possible values are `Alert`, `Deny` and `Off`. Defaults to `Alert`."
+}
+
+variable "firewall_policy_policy_sku" {
+  type        = string
+  default     = null
+  description = "(Optional) The SKU Tier of the Firewall Policy. Possible values are `Standard`, `Premium` and `Basic`. Changing this forces a new Firewall Policy to be created."
 }

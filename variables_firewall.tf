@@ -56,29 +56,6 @@ variable "diagnostic_settings" {
   }
 }
 
-variable "fw_enable_telemetry" {
-  type        = bool
-  default     = false
-  description = <<DESCRIPTION
-This variable controls whether or not telemetry is enabled for the module.
-For more information see https://aka.ms/avm/telemetryinfo.
-If it is set to false, then no telemetry will be collected.
-DESCRIPTION
-}
-
-# variable "firewall_ip_configuration" {
-#   type = list(object({
-#     name                 = string
-#     public_ip_address_id = optional(string)
-#     subnet_id            = optional(string)
-#   }))
-#   default     = null
-#   description = <<-EOT
-#  - `name` - (Required) Specifies the name of the IP Configuration.
-#  - `public_ip_address_id` - (Optional) The ID of the Public IP Address associated with the firewall.
-#  - `subnet_id` - (Optional) Reference to the subnet associated with the IP Configuration. Changing this forces a new resource to be created.
-# EOT
-# }
 
 variable "firewall_management_ip_configuration" {
   type = object({

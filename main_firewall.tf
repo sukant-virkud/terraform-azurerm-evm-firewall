@@ -5,9 +5,9 @@ module "firewall" {
   source                               = "Azure/avm-res-network-azurefirewall/azurerm"
   version                              = "0.3.0"
   name                                 = var.naming_map.firewall.name
-  enable_telemetry                     = var.fw_enable_telemetry
+  enable_telemetry                     = var.enable_telemetry
   location                             = var.azure_location
-  resource_group_name                  = var.network_group_name
+  resource_group_name                  = var.network_resource_group_name
   firewall_sku_tier                    = var.firewall_sku_tier
   firewall_sku_name                    = var.firewall_sku_name
   firewall_zones                       = var.azure_location_zones
