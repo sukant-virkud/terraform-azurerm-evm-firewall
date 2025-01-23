@@ -15,9 +15,9 @@ variable "public_ip_sku" {
 variable "public_ip_sku_tier" {
   type        = string
   description = "The tier of the SKU of the public IP address."
-  default     = "Regional" 
+  default     = "Regional"
   validation {
-    condition     = can(regex("^(Global|Regional)$", var.public_ip_tier))
+    condition     = can(regex("^(Global|Regional)$", var.public_ip_sku_tier))
     error_message = "The SKU tier must be either 'Global' or 'Regional'."
   }
 }

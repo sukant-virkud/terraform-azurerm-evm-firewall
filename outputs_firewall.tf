@@ -12,5 +12,3 @@ output "firewall_ip_configuration" {
   description = "The Private IP address of the Azure Firewall."
   value       = module.firewall.resource.ip_configuration
 }
-
-

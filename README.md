@@ -42,10 +42,10 @@ No resources.
 | azure\_resource\_tags | Resource tags to add to all resources managed by this module. | `map(string)` | n/a | yes |
 | create\_firewall\_policy | condition whetehr the FW policy to be created or not | `string` | n/a | yes |
 | diagnostic\_settings | A map of diagnostic settings to create on the Firewall. The map key is deliberately arbitrary to avoid issues where map keys maybe unknown at plan time.<br/><br/>  - `name` - (Optional) The name of the diagnostic setting. One will be generated if not set, however this will not be unique if you want to create multiple diagnostic setting resources.<br/>  - `log_categories` - (Optional) A set of log categories to send to the log analytics workspace. Defaults to `[]`.<br/>  - `log_groups` - (Optional) A set of log groups to send to the log analytics workspace. Defaults to `["allLogs"]`.<br/>  - `metric_categories` - (Optional) A set of metric categories to send to the log analytics workspace. Defaults to `["AllMetrics"]`.<br/>  - `log_analytics_destination_type` - (Optional) The destination type for the diagnostic setting. Possible values are `Dedicated` and `AzureDiagnostics`. Defaults to `Dedicated`.<br/>  - `workspace_resource_id` - (Optional) The resource ID of the log analytics workspace to send logs and metrics to.<br/>  - `storage_account_resource_id` - (Optional) The resource ID of the storage account to send logs and metrics to.<br/>  - `event_hub_authorization_rule_resource_id` - (Optional) The resource ID of the event hub authorization rule to send logs and metrics to.<br/>  - `event_hub_name` - (Optional) The name of the event hub. If none is specified, the default event hub will be selected.<br/>  - `marketplace_partner_resource_id` - (Optional) The full ARM resource ID of the Marketplace resource to which you would like to send Diagnostic LogsLogs. | <pre>map(object({<br/>    name                                     = optional(string, null)<br/>    log_categories                           = optional(set(string), [])<br/>    log_groups                               = optional(set(string), ["allLogs"])<br/>    metric_categories                        = optional(set(string), ["AllMetrics"])<br/>    log_analytics_destination_type           = optional(string, "Dedicated")<br/>    workspace_resource_id                    = optional(string, null)<br/>    storage_account_resource_id              = optional(string, null)<br/>    event_hub_authorization_rule_resource_id = optional(string, null)<br/>    event_hub_name                           = optional(string, null)<br/>    marketplace_partner_resource_id          = optional(string, null)<br/>  }))</pre> | `{}` | no |
+| enable\_telemetry | This variable controls whether or not telemetry is enabled for the module.<br/>For more information see https://aka.ms/avm/telemetryinfo.<br/>If it is set to false, then no telemetry will be collected. | `bool` | `true` | no |
 | firewall\_ip\_configuration\_subnetid | The subnet ID for the firewall IP configuration. | `string` | n/a | yes |
 | firewall\_management\_ip\_configuration | - `name` - (Required) Specifies the name of the IP Configuration.<br/>- `public_ip_address_id` - (Required) The ID of the Public IP Address associated with the firewall.<br/>- `subnet_id` - (Required) Reference to the subnet associated with the IP Configuration. Changing this forces a new resource to be created. | <pre>object({<br/>    name                 = string<br/>    public_ip_address_id = string<br/>    subnet_id            = string<br/>  })</pre> | `null` | no |
 | firewall\_policy\_base\_policy\_id | (Optional) The ID of the base Firewall Policy. | `string` | `null` | no |
-| firewall\_policy\_enable\_telemetry | This variable controls whether or not telemetry is enabled for the module.<br/>For more information see https://aka.ms/avm/telemetryinfo.<br/>If it is set to false, then no telemetry will be collected. | `bool` | `false` | no |
 | firewall\_policy\_id | (Optional) The ID of the Firewall Policy applied to this Firewall. | `string` | `null` | no |
 | firewall\_policy\_intrusion\_detection | - `mode` - (Optional) In which mode you want to run intrusion detection: `Off`, `Alert` or `Deny`.<br/>- `private_ranges` - (Optional) A list of Private IP address ranges to identify traffic direction. By default, only ranges defined by IANA RFC 1918 are considered private IP addresses.<br/><br/>---<br/>`signature_overrides` block supports the following:<br/>- `id` - (Optional) 12-digit number (id) which identifies your signature.<br/>- `state` - (Optional) state can be any of `Off`, `Alert` or `Deny`.<br/><br/>---<br/>`traffic_bypass` block supports the following:<br/>- `description` - (Optional) The description for this bypass traffic setting.<br/>- `destination_addresses` - (Optional) Specifies a list of destination IP addresses that shall be bypassed by intrusion detection.<br/>- `destination_ip_groups` - (Optional) Specifies a list of destination IP groups that shall be bypassed by intrusion detection.<br/>- `destination_ports` - (Optional) Specifies a list of destination IP ports that shall be bypassed by intrusion detection.<br/>- `name` - (Required) The name which should be used for this bypass traffic setting.<br/>- `protocol` - (Required) The protocols any of `ANY`, `TCP`, `ICMP`, `UDP` that shall be bypassed by intrusion detection.<br/>- `source_addresses` - (Optional) Specifies a list of source addresses that shall be bypassed by intrusion detection.<br/>- `source_ip_groups` - (Optional) Specifies a list of source IP groups that shall be bypassed by intrusion detection. | <pre>object({<br/>    mode           = optional(string)<br/>    private_ranges = optional(list(string))<br/>    signature_overrides = optional(list(object({<br/>      id    = optional(string)<br/>      state = optional(string)<br/>    })))<br/>    traffic_bypass = optional(list(object({<br/>      description           = optional(string)<br/>      destination_addresses = optional(set(string))<br/>      destination_ip_groups = optional(set(string))<br/>      destination_ports     = optional(set(string))<br/>      name                  = string<br/>      protocol              = string<br/>      source_addresses      = optional(set(string))<br/>      source_ip_groups      = optional(set(string))<br/>    })))<br/>  })</pre> | `null` | no |
 | firewall\_policy\_policy\_sku | (Optional) The SKU Tier of the Firewall Policy. Possible values are `Standard`, `Premium` and `Basic`. Changing this forces a new Firewall Policy to be created. | `string` | `null` | no |
@@ -54,12 +54,10 @@ No resources.
 | firewall\_private\_ip\_ranges | (Optional) A list of SNAT private CIDR IP ranges, or the special string `IANAPrivateRanges`, which indicates Azure Firewall does not SNAT when the destination IP address is a private range per IANA RFC 1918. | `set(string)` | `null` | no |
 | firewall\_sku\_name | (Required) SKU name of the Firewall. Possible values are `AZFW_Hub` and `AZFW_VNet`. Changing this forces a new resource to be created. | `string` | n/a | yes |
 | firewall\_sku\_tier | (Required) SKU tier of the Firewall. Possible values are `Premium`, `Standard` and `Basic`. | `string` | n/a | yes |
-| fw\_enable\_telemetry | This variable controls whether or not telemetry is enabled for the module.<br/>For more information see https://aka.ms/avm/telemetryinfo.<br/>If it is set to false, then no telemetry will be collected. | `bool` | `false` | no |
 | naming\_map | A map containing Azure resource anmes aligned to the Cloud Adoption Framework. | `any` | n/a | yes |
-| network\_group\_name | The resource group where the network resources are  deployed. Firewall must be created in network resource group | `string` | n/a | yes |
-| pip\_enable\_telemetry | This variable controls whether or not telemetry is enabled for the module.<br/>For more information see https://aka.ms/avm/telemetryinfo.<br/>If it is set to false, then no telemetry will be collected. | `bool` | `false` | no |
-| pip\_sku | The SKU of the public IP address. | `string` | `"Standard"` | no |
-| pip\_sku\_tier | The tier of the SKU of the public IP address. | `string` | `"Regional"` | no |
+| network\_resource\_group\_name | The resource group where the network resources are  deployed. Firewall must be created in network resource group | `string` | n/a | yes |
+| public\_ip\_sku | The SKU of the public IP address. | `string` | `"Standard"` | no |
+| public\_ip\_sku\_tier | The tier of the SKU of the public IP address. | `string` | `"Regional"` | no |
 | resource\_group\_name | The resource group where the resources will be deployed. | `string` | n/a | yes |
 
 ## Outputs
@@ -67,6 +65,8 @@ No resources.
 | Name | Description |
 |------|-------------|
 | firewall\_id | The resource ID of the firewall. |
+| firewall\_ip\_configuration | The Private IP address of the Azure Firewall. |
+| firewall\_name | The name of the firewall. |
 | firewall\_policy\_id | The resource ID of the firewall parent policy. |
 | public\_ip\_address | The IP address of the firewall public ip. |
 | public\_ip\_id | The resource ID of the firewall public ip address. |
@@ -75,11 +75,19 @@ No resources.
 ### Main
 #### terraform.tfvars
 ```hcl
-company_name_short      = "ensevm"
-subscription_name_short = "con"
-module_names            = ["firewall"]
-azure_location          = "eastus"
-resource_group_name     = "rg-test-sat"
+company_name_short                       = "ensevm"
+subscription_name_short                  = "con"
+module_names                             = ["firewall"]
+azure_location                           = "eastus2"
+network_resource_group_name              = "rg-ensrtf-eus2-prod-con-hub"
+firewall_sku_name                        = "AZFW_VNet"
+firewall_sku_tier                        = "Standard"
+firewall_ip_configuration_subnetid       = "/subscriptions/xxxx-xxxx-xxxx-xxxx-xxxx/resourceGroups/rg-ensrtf-eus2-prod-con-hub/providers/Microsoft.Network/virtualNetworks/vnet-ensrtf-eus2-prod-con-hub/subnets/AzureFirewallSubnet"
+firewall_policy_threat_intelligence_mode = "Alert"
+firewall_policy_policy_sku               = "Standard"
+
+
+
 
 /*
 Sensitive inputs should be passed as pipeline environment variables
@@ -91,55 +99,24 @@ azure_subscription_id = "xxx"
 #### example.tf
 ```hcl
 
-# resource "azurerm_virtual_network" "example" {
-#   name                = "testvnet"
-#   address_space       = ["10.0.0.0/16"]
-#   location            = azurerm_resource_group.modules["firewall"].location
-#   resource_group_name = azurerm_resource_group.modules["firewall"].name
-# }
-
-# resource "azurerm_subnet" "example" {
-#   name                 = "AzureFirewallSubnet"
-#   resource_group_name  = azurerm_resource_group.modules["firewall"].name
-#   virtual_network_name = azurerm_virtual_network.example.name
-#   address_prefixes     = ["10.0.1.0/24"]
-# }
-
-# resource "azurerm_public_ip" "example" {
-#   name                = "testpip"
-#   location            = azurerm_resource_group.example.location
-#   resource_group_name = "rg-test-sat"
-#   allocation_method   = "Static"
-#   sku                 = "Standard"
-# }
-
-
 module "hub_firewall" {
-  source               = "../../"
-  network_group_name   = "rg-ensrtf-eus2-prod-con-hub"
-  azure_location       = azurerm_resource_group.modules["firewall"].location
-  resource_group_name  = azurerm_resource_group.modules["firewall"].name
-  azure_location_zones = module.azure_regions.regions_by_name[var.azure_location].zones
-  naming_map           = local.name_map["firewall"]
-  azure_resource_tags  = local.resource_tags
-
-  #Public IP Configurations
-  # allocation_method    = "Static"
-  # pip_sku              = "Standard"
-  # pip_sku_tier         = "Regional"
-  # pip_enable_telemetry = false
+  source                      = "../../"
+  network_resource_group_name = var.network_resource_group_name
+  azure_location              = azurerm_resource_group.modules["firewall"].location
+  resource_group_name         = azurerm_resource_group.modules["firewall"].name
+  azure_location_zones        = module.azure_regions.regions_by_name[var.azure_location].zones
+  naming_map                  = local.name_map["firewall"]
+  azure_resource_tags         = local.resource_tags
 
   #Firewall Configurations
-  firewall_sku_name                  = "AZFW_VNet"
-  firewall_sku_tier                  = "Standard"
-  firewall_ip_configuration_subnetid = "/subscriptions/cea31a73-c42c-4b17-b83d-c629142bf942/resourceGroups/rg-ensrtf-eus2-prod-con-hub/providers/Microsoft.Network/virtualNetworks/vnet-ensrtf-cus-prod-con-hub/subnets/AzureFirewallSubnet"
-
+  firewall_sku_name                  = var.firewall_sku_name
+  firewall_sku_tier                  = var.firewall_sku_tier
+  firewall_ip_configuration_subnetid = var.firewall_ip_configuration_subnetid
   # Firewall Policy Configurations
+
   create_firewall_policy                   = true
-  firewall_policy_threat_intelligence_mode = "Alert"
-  firewall_policy_policy_sku               = "Standard"
-
-
+  firewall_policy_threat_intelligence_mode = var.firewall_policy_threat_intelligence_mode
+  firewall_policy_policy_sku               = var.firewall_policy_policy_sku
 }
 ```
 <!-- END_TF_DOCS -->
