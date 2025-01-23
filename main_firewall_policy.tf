@@ -14,5 +14,6 @@ module "firewall_policy" {
   firewall_policy_intrusion_detection           = var.firewall_policy_intrusion_detection
   tags                                          = var.azure_resource_tags
   firewall_policy_base_policy_id                = var.firewall_policy_base_policy_id
+  firewall_policy_dns                           = var.firewall_policy_dns
 
 }
