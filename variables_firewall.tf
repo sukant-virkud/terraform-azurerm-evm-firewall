@@ -9,6 +9,11 @@ variable "firewall_sku_tier" {
   type        = string
   description = "(Required) SKU tier of the Firewall. Possible values are `Premium`, `Standard` and `Basic`."
   nullable    = false
+  default     = "basic"
+  validation {
+    condition     = contains(["Premium", "Standard", "Basic"], var.firewall_sku_tier)
+    error_message = "Firewall SKU tier must be one of: 'Premium', 'Standard', 'Basic'."
+  }
 }
 
 variable "diagnostic_settings" {
