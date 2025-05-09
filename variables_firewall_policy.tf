@@ -85,9 +85,9 @@ variable "firewall_policy_dns" {
     proxy_enabled = optional(bool)
     servers       = optional(list(string))
   })
-  default     = {
+  default = {
     proxy_enabled = true
-    servers = []
+    servers       = []
   }
   description = <<-EOT
  - `proxy_enabled` - (Optional) Whether to enable DNS proxy on Firewalls attached to this Firewall Policy? Defaults to `false`.
