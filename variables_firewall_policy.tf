@@ -3,7 +3,7 @@
 
 
 variable "create_firewall_policy" {
-  type        = string
+  type        = bool
   description = "condition whetehr the FW policy to be created or not"
   nullable    = false
 }
