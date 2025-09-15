@@ -6,6 +6,7 @@ variable "create_firewall_policy" {
   type        = bool
   description = "condition whetehr the FW policy to be created or not"
   nullable    = false
+  default = false
 }
 
 variable "firewall_policy_threat_intelligence_allowlist" {
