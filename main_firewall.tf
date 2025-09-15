@@ -14,7 +14,7 @@ module "firewall" {
   firewall_ip_configuration            = local.firewall_ip_configuration
   firewall_management_ip_configuration = var.firewall_management_ip_configuration
   firewall_private_ip_ranges           = var.firewall_private_ip_ranges
-  firewall_policy_id                   = local.effective_firewall_policy_id
+  firewall_policy_id                   = var.firewall_policy_id
   tags                                 = var.azure_resource_tags
   diagnostic_settings                  = var.diagnostic_settings
 }

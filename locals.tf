@@ -7,6 +7,6 @@ locals {
     }
   ]
 
-  effective_firewall_policy_id = var.create_firewall_policy ? module.firewall_policy[0].resource_id : var.firewall_policy_id
+  #effective_firewall_policy_id = var.create_firewall_policy ? module.firewall_policy[0].resource_id : var.firewall_policy_id
 
 }
